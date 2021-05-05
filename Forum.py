@@ -82,7 +82,7 @@ class ForumWindow(QMainWindow):
         #never use this if there are multiple ui loaded to the stack widget
         self.widget.removeWidget(self.widget.currentWidget())
         self.widget.addWidget(window)
-        self.widget.setCurrentIndex(1)
+        self.widget.setCurrentIndex(0)
 
 
 
