@@ -10,6 +10,11 @@
     <height>700</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>15</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -167,67 +172,29 @@ background-color:rgb(56,77,91);
          <number>50</number>
         </property>
         <item>
-         <widget class="QLineEdit" name="SearchBar">
+         <widget class="QPushButton" name="FrontPageBtn">
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton{
+background-color:rgb(56,77,91);
+border:none;
+color: rgb(255, 255, 255);
+}
+
+QPushButton::hover{
+color: rgb(250, 207, 125);
+}</string>
+          </property>
           <property name="text">
-           <string/>
+           <string>Back to Front Page</string>
           </property>
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="LoginBtn">
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
-background-color:rgb(56,77,91);
-border:none;
-color: rgb(255, 255, 255);
-}
-
-QPushButton::hover{
-color: rgb(250, 207, 125);
-}</string>
-        </property>
-        <property name="text">
-         <string>Login/Registration</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="CartBtn">
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
-background-color:rgb(56,77,91);
-border:none;
-color: rgb(255, 255, 255);
-}
-
-QPushButton::hover{
-color: rgb(250, 207, 125);
-}</string>
-        </property>
-        <property name="text">
-         <string>Cart</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ForumBtn">
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
-background-color:rgb(56,77,91);
-border:none;
-color: rgb(255, 255, 255);
-}
-
-QPushButton::hover{
-color: rgb(250, 207, 125);
-}</string>
-        </property>
-        <property name="text">
-         <string>Forum</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>

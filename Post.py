@@ -1,3 +1,7 @@
+
+# pylint: disable=missing-docstring
+# pylint: disable=no-name-in-module
+# pylint: disable=unused-import
 import sys
 import mysql.connector as maria
 from PyQt5 import QtWidgets, QtGui, QtCore
@@ -29,6 +33,7 @@ replycontentdisc = 80
 
 class PostWindow(QMainWindow):
     def __init__(self, item, cursor):
+        super(PostWindow, self).__init__()
         self.cur = cursor
         self.item = item
         super(PostWindow, self).__init__()

@@ -214,27 +214,12 @@ background-color:rgb(56,77,91);
         <number>14</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="SearchArea_2">
-         <property name="spacing">
-          <number>0</number>
+        <widget class="QPushButton" name="BackToForumB">
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+          </font>
          </property>
-         <property name="leftMargin">
-          <number>50</number>
-         </property>
-         <property name="rightMargin">
-          <number>50</number>
-         </property>
-         <item>
-          <widget class="QLineEdit" name="SearchBar_2">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="LoginBtn_2">
          <property name="styleSheet">
           <string notr="true">QPushButton{
 background-color:rgb(56,77,91);
@@ -247,43 +232,7 @@ color: rgb(250, 207, 125);
 }</string>
          </property>
          <property name="text">
-          <string>Login/Registration</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="CartBtn_2">
-         <property name="styleSheet">
-          <string notr="true">QPushButton{
-background-color:rgb(56,77,91);
-border:none;
-color: rgb(255, 255, 255);
-}
-
-QPushButton::hover{
-color: rgb(250, 207, 125);
-}</string>
-         </property>
-         <property name="text">
-          <string>Cart</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="ForumBtn_2">
-         <property name="styleSheet">
-          <string notr="true">QPushButton{
-background-color:rgb(56,77,91);
-border:none;
-color: rgb(255, 255, 255);
-}
-
-QPushButton::hover{
-color: rgb(250, 207, 125);
-}</string>
-         </property>
-         <property name="text">
-          <string>Forum</string>
+          <string>Exit this post</string>
          </property>
         </widget>
        </item>
@@ -369,24 +318,6 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="BackToForumB">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>630</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Exit this post</string>
-    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
