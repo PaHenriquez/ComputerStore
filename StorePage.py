@@ -67,7 +67,7 @@ class FrontPage(QMainWindow):
     def GoToWindow(self, window):
         widget.removeWidget(widget.currentWidget())
         widget.addWidget(window)
-        widget.setCurrentIndex(0)
+        widget.setCurrentIndex(1)
 
 
 class LoginScreen(QDialog):
