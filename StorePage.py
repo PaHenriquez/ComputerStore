@@ -64,10 +64,6 @@ class FrontPage(QMainWindow):
         AccountDetailUI.FrontpageBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(userID)))
 
 
-    def backToFrontPage(self):
-        widget.setCurrentIndex(0)
-
-
     def GoToWindow(self, window):
         widget.removeWidget(widget.currentWidget())
         widget.addWidget(window)
