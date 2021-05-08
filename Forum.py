@@ -69,9 +69,8 @@ class ForumWindow(QMainWindow):
 
     def CreatePost(self):
         page = int(self.Current_page.text()[14:])
-        subForum = self.CurrentForumLabel.text()[15:]
-
-        CreatePostUI = CreatePostWindow(subForum, self.userID)
+        
+        CreatePostUI = CreatePostWindow(self.currForum, self.userID)
         self.GoToWindow(CreatePostUI)
 
         CreatePostUI.NevermindBtn.clicked.connect(lambda:
