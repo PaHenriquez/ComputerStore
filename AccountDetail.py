@@ -18,10 +18,9 @@ from DBAction import Insert_New_Payment
 
 class AccountDetail(QMainWindow):
 
-    def __init__(self,UserID,cur,widget,FrontPageUI):
+    def __init__(self,UserID,widget,FrontPageUI):
         self.widget = widget
         self.userID = UserID
-        self.cur = cur
         self.FrontPageUI = FrontPageUI
 
         super(AccountDetail,self).__init__()
@@ -30,14 +29,14 @@ class AccountDetail(QMainWindow):
         self.GETITDONE.clicked.connect(self.ModifyInfo)
 
     def FillInInfo(self):
-        result = FindUser(self.cur, self.userID)
+        result = FindUser(self.userID)
         self.UsernameLineEdit.setText(result[1])
         self.EmailLineEdit.setText(result[2])
         self.PhoneLineEdit.setText(result[4])
-        result = FindAddressAndStoreCredit(self.cur, self.userID)
+        result = FindAddressAndStoreCredit(self.userID)
         self.AddressLineEdit.setText(result[1])
         self.StoreCreditLineEdit.setText("$"+str(result[2]/100))
-        result = FindPayment(self.cur, self.userID)
+        result = FindPayment(self.userID)
 
         # If payment info not found, it doesn't present payment info on account detail screen
         
@@ -52,32 +51,32 @@ class AccountDetail(QMainWindow):
     def ModifyInfo(self):
 
         if(self.NewEmailLineEdit.text()):
-            Update_Data(self.cur, 'Users', 'Email',self.NewEmailLineEdit.text(), self.userID)
+            Update_Data('Users', 'Email',self.NewEmailLineEdit.text(), self.userID)
 
         if(self.NewPhoneLineEdit.text()):
-            Update_Data(self.cur, 'Users', 'Phone_Number',self.NewPhoneLineEdit.text(), self.userID)
+            Update_Data('Users', 'Phone_Number',self.NewPhoneLineEdit.text(), self.userID)
 
         if(self.NewPasswordLineEdit.text()):
-            Update_Data(self.cur, 'Users', 'Password',self.NewPasswordLineEdit.text(), self.userID)
+            Update_Data('Users', 'Password',self.NewPasswordLineEdit.text(), self.userID)
 
         if(self.NewAddressLineEdit.text()):
-            Update_Data(self.cur, 'Customer', 'Address',self.NewAddressLineEdit.text(), self.userID)
+            Update_Data('Customer', 'Address',self.NewAddressLineEdit.text(), self.userID)
 
-        result = FindPayment(self.cur,self.userID)
+        result = FindPayment(self.userID)
         
         if(result == False):
-            Insert_New_Payment(self.cur,self.userID,self.NewBankCardLineEdit.text(),\
+            Insert_New_Payment(self.userID,self.NewBankCardLineEdit.text(),\
                 self.NewBankNameLineEdit.text(),self.NewBillAddressLineEdit.text())
         else:
             
             if(self.NewBankCardLineEdit.text()):
-                Update_Data(self.cur, 'Payment', 'Payment_Card',self.NewBankCardLineEdit.text(), self.userID)
+                Update_Data('Payment', 'Payment_Card',self.NewBankCardLineEdit.text(), self.userID)
 
             if(self.NewBankNameLineEdit.text()):
-                Update_Data(self.cur, 'Payment', 'Name_On_Card',self.NewBankNameLineEdit.text(), self.userID)
+                Update_Data('Payment', 'Name_On_Card',self.NewBankNameLineEdit.text(), self.userID)
 
             if(self.NewBillAddressLineEdit.text()):
-                Update_Data(self.cur, 'Payment', 'Billing_Address',self.NewBillAddressLineEdit.text(), self.userID)
+                Update_Data('Payment', 'Billing_Address',self.NewBillAddressLineEdit.text(), self.userID)
 
         self.FrontPageUI.clickedAccount(self.userID)
         

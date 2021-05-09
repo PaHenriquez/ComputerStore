@@ -435,7 +435,7 @@ color: rgb(250, 207, 125);
      </font>
     </property>
     <property name="text">
-     <string>Enter your old password to confirm change (You'll be logged out)</string>
+     <string>                    Enter your current password to confirm change</string>
     </property>
    </widget>
    <widget class="QPushButton" name="GETITDONE">

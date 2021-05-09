@@ -6,17 +6,20 @@
 # pylint: disable=unused-import
 # pylint: disable=undefined-variable
 import sys
-import mariadb
+#import mariadb
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QListWidgetItem
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 from Post import PostWindow
 from Forum import ForumWindow
-from DBAction import AttemptLogin
 from AccountDetail import AccountDetail
-from DBAction import Insert_New_User, Insert_New_Payment
-from DBAction import AttemptRegistration
+from DBAction import AttemptLogin,DoesEmailExist,DoesUsernameExist,Insert_New_User
+from DBAction import FindUser
+from random import randint
+
+#test
+from LoginScreen import LoginScreenWindow
 
 
 
@@ -55,12 +58,13 @@ class FrontPage(QMainWindow):
         else:
             LoginUI = LoginScreen()
             self.GoToWindow(LoginUI)
-
-            # test
-            #FrontPageUI = FrontPage(userID)
-            #LoginUI = LoginScreenWindow(cur,widget,FrontPageUI)
+            
+            #testing loginScreenWindow class
+            
+            #FrontPageUI = FrontPage # pass class object
+            #LoginUI = LoginScreenWindow(widget,FrontPageUI)
             #self.GoToWindow(LoginUI)
-            #LoginUI.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPageUI))
+            #LoginUI.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(0)))
 
 
             #regisUI = RegistrationScreen()
@@ -72,7 +76,7 @@ class FrontPage(QMainWindow):
     def clickedAccount(self, userID):
         FrontPageUI = FrontPage(userID)
         #AccountDetailUI = AccountDetail(userID, curF, curS, widget, FrontPageUI)
-        AccountDetailUI = AccountDetail(userID,cur,widget,FrontPageUI)
+        AccountDetailUI = AccountDetail(userID,widget,FrontPageUI)
         self.GoToWindow(AccountDetailUI)
         AccountDetailUI.FrontpageBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(userID)))
 
@@ -95,11 +99,16 @@ class LoginScreen(QMainWindow):
         self.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(0)))
 
     def LoginAction(self, useremail, password):
-        result = AttemptLogin(cur, useremail, password)
+        result = AttemptLogin(useremail, password)
         if result != False:
             self.GoToWindow(FrontPage(result[0]))
         else:
-            self.ContinueBtn.setText("Fail! Try again?")
+
+            if(DoesEmailExist(useremail) == False):
+                self.ContinueBtn.setText("Email doesn't exist")
+            else:
+                self.ContinueBtn.setText("Password is incorrect")
+            
 
     def GoToWindow(self, window):
         widget.removeWidget(widget.currentWidget())
@@ -116,18 +125,30 @@ class RegistrationScreen(QMainWindow):
             self.EmailForm.text(),self.PasswordForm.text(),self.PasswordReEntryForm.text()))
 
     def RegisterAction(self,username,email,password,password_reentry):
-        result = AttemptRegistration(cur,username,email,password,password_reentry)
-        if(result != False):
-            self.RegisterBtn.setText("Succesful registeration! Go Login")
+        if(DoesUsernameExist(username) == True):
+            self.RegisterBtn.setText("username exist, pick a new username")
+        elif(DoesEmailExist(email) == True):
+            self.RegisterBtn.setText("Email registered, pick a new email")
+        elif(self.PasswordForm.text() != self.PasswordReEntryForm.text()):
+            self.RegisterBtn.setText("Passwords does not match")
+        elif(username == "" or email == "" or password == "" or password_reentry == ""):
+            self.RegisterBtn.setText("Registration form is not complete")
         else:
-            self.RegisterBtn.setText("Fail! Try again?")
+            id = randint(10000,90000)
+            while(FindUser(id) != False):
+                id = randint(10000,90000)
+            #print(id)
+            Insert_New_User(id,username,email,password,'0','Customer')
+            self.RegisterBtn.setText("Successful registeration! Go Login")
+            
+        
 
     def GoToWindow(self,window):
         widget.removeWidget(widget.currentWidget())
         widget.addWidget(window)
         widget.setCurrentIndex(0)
 
-
+"""
 def Connect_to_Mariadb():
     connection = mariadb.connect(
         user = "root",
@@ -137,7 +158,7 @@ def Connect_to_Mariadb():
         database = "SpoiledEgg"
     )
     return connection
-
+"""
 
 #cnxS = mariadb.connect(user='root', password='1234',host='localhost', database='Store')
 #curS = cnxS.cursor(buffered=True)
@@ -145,8 +166,8 @@ def Connect_to_Mariadb():
 #curF = cnxF.cursor(buffered=True)
 
 
-cnx = Connect_to_Mariadb()
-cur = cnx.cursor()
+#cnx = Connect_to_Mariadb()
+#cur = cnx.cursor()
 
 
 #Insert_New_Payment(cur, 1, "00010899", "Snortz", "Nyc")
@@ -155,6 +176,6 @@ app = QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
 widget.setFixedHeight(700)
 widget.setFixedWidth(940)
-widget.addWidget(FrontPage(1))
+widget.addWidget(FrontPage(0))
 widget.show()
 app.exec_()

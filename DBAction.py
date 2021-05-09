@@ -1,6 +1,6 @@
 import mariadb
 
-def AttemptLogin(cur, Email, password):
+def AttemptLogin(Email, password):
     query = "select * from Spoiled_Users where Email = \"{}\" and Password = \"{}\" limit 1".format(Email, password)
     cur.execute(query)
     result = cur.fetchall()
@@ -9,7 +9,7 @@ def AttemptLogin(cur, Email, password):
     else:
         return False
 
-def FindUser(cur, userID):
+def FindUser(userID):
     query = "select * from Spoiled_Users where ID = \"{}\"limit 1".format(userID)
     cur.execute(query)
     result = cur.fetchall()
@@ -18,7 +18,7 @@ def FindUser(cur, userID):
     else:
         return False
 
-def FindAddressAndStoreCredit(cur, userID):
+def FindAddressAndStoreCredit(userID):
     query = "select * from Spoiled_Customer where ID = \"{}\"limit 1".format(userID)
     cur.execute(query)
     result = cur.fetchall()
@@ -27,7 +27,7 @@ def FindAddressAndStoreCredit(cur, userID):
     else:
         return False
 
-def FindPayment(cur, userID):
+def FindPayment(userID):
     query = "select * from Spoiled_Payment where ID = \"{}\"limit 1".format(userID)
     cur.execute(query)
     result = cur.fetchall()
@@ -49,12 +49,14 @@ def SelectUser(cur, userID, Filter = "All"):
             "SELECT * FROM Spoiled_Users where ID = ?;", (userID)
             )
        
-def Update_Data(cur,Table,Attribute,New_Value,ID):
+def Update_Data(Table,Attribute,New_Value,ID):
     cur.execute(
         "UPDATE Spoiled_" + Table + " SET " + Attribute + " = \"{}\" WHERE ID = \"{}\"".format(New_Value,ID))
     cnx.commit()
 
-def Insert_New_User(cur,ID,Username,Email,Password,Phone_Number,User_Type,Type = "n/a",Company_Name = "n/a"): 
+def Insert_New_User(ID,Username,Email,Password,Phone_Number,User_Type,Type = "n/a",Company_Name = "n/a"): 
+    #cnx= Connect_to_Mariadb()
+    #cur = cnx.cursor()
     cur.execute("INSERT INTO Spoiled_Users(ID,Username,Email,Password,Phone_Number,User_Type) \
               VALUES(?,?,?,?,?,?);",(ID, Username, Email, Password, Phone_Number, User_Type))
     if User_Type == "Customer":          
@@ -185,12 +187,12 @@ def Connect_to_Mariadb():
 
 # testing insert payment functionality - Raystorm
 
-def Insert_New_Payment(cur,UserID,Payment_card = 0,Name_On_Card ="N/A",Billing_Address="N/A"):
+def Insert_New_Payment(UserID,Payment_card = 0,Name_On_Card ="N/A",Billing_Address="N/A"):
     cur.execute("INSERT INTO Spoiled_Payment(ID,Payment_Card,Name_On_Card,Billing_Address)"+
         "VALUES(?,?,?,?);",(UserID,Payment_card,Name_On_Card,Billing_Address))
     cnx.commit()
 
-def DoesUsernameExist(cur,username):
+def DoesUsernameExist(username):
     query = "select Username from Spoiled_Users where Username = \"{}\"".format(username)
     cur.execute(query)
     result = cur.fetchone()
@@ -199,7 +201,7 @@ def DoesUsernameExist(cur,username):
     else:
         return False
 
-def DoesEmailExist(cur,email):
+def DoesEmailExist(email):
     query = "select Email from Spoiled_Users where Email = \"{}\"".format(email)
     cur.execute(query)
     result = cur.fetchone()
@@ -207,23 +209,7 @@ def DoesEmailExist(cur,email):
         return True
     else:
         return False
-
-def AttemptRegistration(cur,username,email,password,password_reentry):
-    if(DoesUsernameExist(cur,username) == True):
-        print("pick different username")
-        return False
-    if(DoesEmailExist(cur,email) == True):
-        print("pick different email")
-        return False
     
-    if(password != password_reentry):
-        print("password does not match")
-        return False
-
-    Insert_New_User(cur,2,username,email,password,'999','Customer')
-    
-    
-
     
 
 # cnxS = maria.connect(user='root', password='password',host='localhost', database='SpoiledEgg')
@@ -232,6 +218,8 @@ def AttemptRegistration(cur,username,email,password,password_reentry):
 
 cnx = Connect_to_Mariadb()
 cur = cnx.cursor()
+
+#print(cur.execute("Select * From Spoiled_Users where Phone_Number = 999"))
 
 # curS.execute("INSERT INTO AVOID(Email) VALUES(\"somegmail@gmail.com\");")
 # print(curS.execute("select * from AVOID"))
@@ -252,8 +240,8 @@ cur = cnx.cursor()
 #Insert_New_User(cur, 1, "Snortz", "Cheese@aol.com","test", "101-100-1000", "Customer")
 #Insert_New_Payment(cur,1,"23")
 #Insert_New_Payment(cur, 1, "00010899", "Snortz", "Nyc")
-test = FindPayment(cur,1)
-print(test)
+#test = FindPayment(cur,1)
+#print(test)
 #Update_Data(cur,'Payment','Name_On_Card','ray',1)
 #Update_Data(cur,'Users','Phone_Number','9',1)
 #test = FindPayment(cur,1)
@@ -261,5 +249,7 @@ print(test)
 
 #test = DoesUsernameExist(cur,"snortz")
 #print(test)
+
+
 
 
