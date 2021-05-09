@@ -43,7 +43,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">QWidget{
-background-color:rgb(56,77,91);
+background-color: rgb(170, 170, 255);
 }</string>
     </property>
     <widget class="QLabel" name="CompanyLogo_2">
@@ -64,7 +64,7 @@ background-color:rgb(56,77,91);
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(252, 233, 79);</string>
+      <string notr="true">background-color: rgb(114, 159, 207);</string>
      </property>
      <property name="text">
       <string>Spoiled Egg</string>
@@ -98,9 +98,9 @@ background-color:rgb(56,77,91);
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
-background-color:rgb(56,77,91);
+background-color: rgb(170, 170, 255);
 border:none;
-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 }
 
 QPushButton::hover{
@@ -121,9 +121,9 @@ color: rgb(250, 207, 125);
         </property>
         <property name="styleSheet">
          <string notr="true">QPushButton{
-background-color:rgb(56,77,91);
+background-color: rgb(170, 170, 255);
 border:none;
-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
 }
 
 QPushButton::hover{

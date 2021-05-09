@@ -13,6 +13,7 @@ from DBAction import FindPayment
 from DBAction import FindAddressAndStoreCredit
 from DBAction import FindUser
 from DBAction import Update_Data
+from DBAction import Insert_New_Payment
 
 
 class AccountDetail(QMainWindow):
@@ -50,27 +51,33 @@ class AccountDetail(QMainWindow):
 
     def ModifyInfo(self):
 
-        print(type(self.userID))
-        if(self.NewPhoneLineEdit.text()):
-            Update_Data(self.cur,'Users','Phone_Number',self.NewPhoneLineEdit.text(),self.userID)
-
         if(self.NewEmailLineEdit.text()):
-            Update_Data(self.cur,'Users','Email',self.NewEmailLineEdit.text(),self.userID)
+            Update_Data(self.cur, 'Users', 'Email',self.NewEmailLineEdit.text(), self.userID)
+
+        if(self.NewPhoneLineEdit.text()):
+            Update_Data(self.cur, 'Users', 'Phone_Number',self.NewPhoneLineEdit.text(), self.userID)
 
         if(self.NewPasswordLineEdit.text()):
-            Update_Data(self.cur,'Users','Password',self.NewPasswordLineEdit.text(),self.userID)
+            Update_Data(self.cur, 'Users', 'Password',self.NewPasswordLineEdit.text(), self.userID)
 
         if(self.NewAddressLineEdit.text()):
-            Update_Data(self.cur,'Customer','Address',self.NewAddressLineEdit.text(),self.userID)
+            Update_Data(self.cur, 'Customer', 'Address',self.NewAddressLineEdit.text(), self.userID)
 
-        if(self.NewBankCardLineEdit.text()):
-            Update_Data(self.cur,'Payment','Payment_Card',self.NewBankCardLineEdit.text(),self.userID)
+        result = FindPayment(self.cur,self.userID)
+        
+        if(result == False):
+            Insert_New_Payment(self.cur,self.userID,self.NewBankCardLineEdit.text(),\
+                self.NewBankNameLineEdit.text(),self.NewBillAddressLineEdit.text())
+        else:
+            
+            if(self.NewBankCardLineEdit.text()):
+                Update_Data(self.cur, 'Payment', 'Payment_Card',self.NewBankCardLineEdit.text(), self.userID)
 
-        if(self.NewBankNameLineEdit.text()):
-            Update_Data(self.cur,'Payment','Name_On_Card',self.NewBankNameLineEdit.text(),self.userID)
+            if(self.NewBankNameLineEdit.text()):
+                Update_Data(self.cur, 'Payment', 'Name_On_Card',self.NewBankNameLineEdit.text(), self.userID)
 
-        if(self.NewBillAddressLineEdit.text()):
-            Update_Data(self.cur,'Payment','Billing_Address',self.NewBillAddressLineEdit.text(),self.userID)
+            if(self.NewBillAddressLineEdit.text()):
+                Update_Data(self.cur, 'Payment', 'Billing_Address',self.NewBillAddressLineEdit.text(), self.userID)
 
         self.FrontPageUI.clickedAccount(self.userID)
         

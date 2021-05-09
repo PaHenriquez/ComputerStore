@@ -185,7 +185,7 @@ def Connect_to_Mariadb():
 
 # testing insert payment functionality - Raystorm
 
-def Insert_New_Payment(cur,UserID,Payment_card,Name_On_Card,Billing_Address):
+def Insert_New_Payment(cur,UserID,Payment_card = 0,Name_On_Card ="N/A",Billing_Address="N/A"):
     cur.execute("INSERT INTO Spoiled_Payment(ID,Payment_Card,Name_On_Card,Billing_Address)"+
         "VALUES(?,?,?,?);",(UserID,Payment_card,Name_On_Card,Billing_Address))
     cnx.commit()
@@ -208,16 +208,12 @@ def DoesEmailExist(cur,email):
     else:
         return False
 
-def AttemptRegistration(cur,username,email,email_reentry,password,password_reentry):
+def AttemptRegistration(cur,username,email,password,password_reentry):
     if(DoesUsernameExist(cur,username) == True):
         print("pick different username")
         return False
     if(DoesEmailExist(cur,email) == True):
         print("pick different email")
-        return False
-    
-    if(email != email_reentry):
-        print("email does not match")
         return False
     
     if(password != password_reentry):
@@ -254,10 +250,10 @@ cur = cnx.cursor()
 #-------------------Raystorm testing------------------------------
 
 #Insert_New_User(cur, 1, "Snortz", "Cheese@aol.com","test", "101-100-1000", "Customer")
-
+#Insert_New_Payment(cur,1,"23")
 #Insert_New_Payment(cur, 1, "00010899", "Snortz", "Nyc")
-#test = FindPayment(cur,1)
-#print(test)
+test = FindPayment(cur,1)
+print(test)
 #Update_Data(cur,'Payment','Name_On_Card','ray',1)
 #Update_Data(cur,'Users','Phone_Number','9',1)
 #test = FindPayment(cur,1)

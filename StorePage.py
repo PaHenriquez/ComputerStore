@@ -19,6 +19,7 @@ from DBAction import Insert_New_User, Insert_New_Payment
 from DBAction import AttemptRegistration
 
 
+
 class FrontPage(QMainWindow):
     def __init__(self, userID):
         self.userID = userID
@@ -54,6 +55,13 @@ class FrontPage(QMainWindow):
         else:
             LoginUI = LoginScreen()
             self.GoToWindow(LoginUI)
+
+            # test
+            #FrontPageUI = FrontPage(userID)
+            #LoginUI = LoginScreenWindow(cur,widget,FrontPageUI)
+            #self.GoToWindow(LoginUI)
+            #LoginUI.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPageUI))
+
 
             #regisUI = RegistrationScreen()
             #LoginUI.RegistrationBtn.clicked.connect(lambda: self.GoToWindow(regisUI))
@@ -105,11 +113,10 @@ class RegistrationScreen(QMainWindow):
         self.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(0)))
         self.SignInBtn.clicked.connect(lambda: self.GoToWindow(LoginScreen()))
         self.RegisterBtn.clicked.connect(lambda: self.RegisterAction(self.UsernameForm.text(),\
-            self.EmailForm.text(),self.EmailReEntryForm.text(),self.PasswordForm.text(),\
-                self.PasswordReEntryForm.text()))
+            self.EmailForm.text(),self.PasswordForm.text(),self.PasswordReEntryForm.text()))
 
-    def RegisterAction(self,username,email,email_reentry,password,password_reentry):
-        result = AttemptRegistration(cur,username,email,email_reentry,password,password_reentry)
+    def RegisterAction(self,username,email,password,password_reentry):
+        result = AttemptRegistration(cur,username,email,password,password_reentry)
         if(result != False):
             self.RegisterBtn.setText("Succesful registeration! Go Login")
         else:
