@@ -53,9 +53,9 @@ class FrontPage(QMainWindow):
             self.GoToWindow(FrontPage(0))
         else:
             LoginUI = LoginScreen()
-            #regisUI = RegistrationScreen()
             self.GoToWindow(LoginUI)
 
+            #regisUI = RegistrationScreen()
             #LoginUI.RegistrationBtn.clicked.connect(lambda: self.GoToWindow(regisUI))
             #LoginUI.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(userID)))
             
@@ -75,10 +75,10 @@ class FrontPage(QMainWindow):
         widget.setCurrentIndex(0)
 
 
-class LoginScreen(QDialog):
+class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
-        loadUi("UIs/Login.ui", self)
+        loadUi("UIs/Login3.ui", self)
         RegisUi = RegistrationScreen()
         
         self.ContinueBtn.clicked.connect(
@@ -98,10 +98,10 @@ class LoginScreen(QDialog):
         widget.addWidget(window)
         widget.setCurrentIndex(0)
 
-class RegistrationScreen(QDialog):
+class RegistrationScreen(QMainWindow):
     def __init__(self):
         super(RegistrationScreen,self).__init__()
-        loadUi("UIs/Registration.ui",self)
+        loadUi("UIs/Registration2.ui",self)
         self.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(0)))
         self.SignInBtn.clicked.connect(lambda: self.GoToWindow(LoginScreen()))
         self.RegisterBtn.clicked.connect(lambda: self.RegisterAction(self.UsernameForm.text(),\

@@ -71,6 +71,9 @@ class AccountDetail(QMainWindow):
 
         if(self.NewBillAddressLineEdit.text()):
             Update_Data(self.cur,'Payment','Billing_Address',self.NewBillAddressLineEdit.text(),self.userID)
+
+        self.FrontPageUI.clickedAccount(self.userID)
+        
         
         # NewEmailLineEdit
         # NewPhoneLineEdit
