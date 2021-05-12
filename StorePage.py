@@ -14,8 +14,8 @@ from PyQt5.uic import loadUi
 from Post import PostWindow
 from Forum import ForumWindow
 from AccountDetail import AccountDetail
-from DBAction import AttemptLogin,DoesEmailExist,DoesUsernameExist,Insert_New_User
-from DBAction import FindUser
+from DBRAction import AttemptLogin,DoesEmailExist,DoesUsernameExist,Insert_New_User
+from DBRAction import FindUser
 from random import randint
 
 #test
@@ -56,14 +56,14 @@ class FrontPage(QMainWindow):
         if userID != False:
             self.GoToWindow(FrontPage(0))
         else:
-            LoginUI = LoginScreen()
-            self.GoToWindow(LoginUI)
+            #LoginUI = LoginScreen()
+            #self.GoToWindow(LoginUI)
             
             #testing loginScreenWindow class
             
-            #FrontPageUI = FrontPage # pass class object
-            #LoginUI = LoginScreenWindow(widget,FrontPageUI)
-            #self.GoToWindow(LoginUI)
+            FrontPageUI = FrontPage # pass class object
+            LoginUI = LoginScreenWindow(widget,FrontPageUI)
+            self.GoToWindow(LoginUI)
             #LoginUI.HomeBtn.clicked.connect(lambda: self.GoToWindow(FrontPage(0)))
 
 
@@ -87,6 +87,7 @@ class FrontPage(QMainWindow):
         widget.setCurrentIndex(0)
 
 
+"""
 class LoginScreen(QMainWindow):
     def __init__(self):
         super(LoginScreen, self).__init__()
@@ -147,6 +148,8 @@ class RegistrationScreen(QMainWindow):
         widget.removeWidget(widget.currentWidget())
         widget.addWidget(window)
         widget.setCurrentIndex(0)
+
+"""
 
 """
 def Connect_to_Mariadb():
